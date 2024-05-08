@@ -1,0 +1,325 @@
+// Create Role
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "Schedule",
+    "email": "shedule@gmail.com",
+    "password": "schedule@12",
+    "confPassword": "schedule@12",
+    "role": "schedule"
+}
+
+###
+// get all users
+GET http://localhost:5000/users
+
+###
+// get single user
+GET http://localhost:5000/users/4693acfe-4715-48c0-9977-e703e7878134
+
+
+
+###
+// update user
+PATCH  http://localhost:5000/users/83ebcda7-bac5-4e8e-a1cd-aaf4a45164d7
+Content-Type: application/json
+
+{
+    "name": "Dispatch Manager",
+    "email": "dispatch@gmail.com",
+    "password": "",
+    "confPassword": "",
+    "role": "dispatch"
+}
+
+
+###
+// Login admin 
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "admin@12"
+}
+
+###
+// Login User 
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "dispatch@gmail.com",
+    "password": "dispatch@12"
+}
+
+###
+GET http://localhost:5000/me
+
+###
+DELETE http://localhost:5000/logout
+
+###
+//get all customers
+
+###
+// get single customer
+GET http://localhost:5000/customers/3b88debe-5611-481f-af07-da231194917a
+
+
+###
+// Create a Customer
+POST http://localhost:5000/customers
+Content-Type: application/json
+
+{
+  "cust_name": "Patrik",
+  "comp_name": "Company",
+  "comp_add": "Address Sample",
+  "gstn_number": "12AVGLF6190V5C4",
+  "cont_num": "+910079453709"
+}
+
+###
+
+###
+//update data
+
+
+
+
+PATCH  http://localhost:5000/customers/36
+Content-Type: application/json
+
+{
+    "cust_name": "Pratik Ghaware", 
+    "comp_name": "Computer Forest", 
+    "comp_add": "Denmark", 
+    "gstn_number": "23AVGLF6190V5C4", 
+    "cont_num": "+919930791350"
+}
+
+
+###
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+  "compId": 1,
+  "prod_name": "ABC",
+  "gradeId": 3,
+  "No_of_casting_in_mould": 18,
+  "Casting_Weight": 80
+}
+
+###
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+  "compId": ,
+  "prod_name": "Product Name", 
+  "gradeId": 1,  
+  "No_of_casting_in_mould": 100,
+  "Casting_Weight": 50
+}
+
+
+
+###
+GET http://localhost:5000/products
+
+
+
+
+// Product
+### 
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+ "comp_name": "Computer Forest",
+ "prod_name": "Product name forest",
+ "gradeId": 1,
+ "No_of_casting_in_mould": 2,
+ "Casting_Weight": 2
+}
+
+
+###
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+  "comp_name": "Computer Forest",
+  "prod_name": "Product XYZ",
+  "gradeId": 1,
+  "No_of_casting_in_mould": 10,
+  "Casting_Weight": 2.5
+}
+
+
+
+###
+GET http://localhost:5000/products
+
+
+
+
+###
+PATCH http://localhost:5000/products/5
+Content-Type: application/json
+
+{
+  "prod_name": "xyz",
+  "gradeId": 2,
+  "No_of_casting_in_mould": 20,
+  "Casting_Weight": 1201
+}
+
+
+
+
+
+# Schedule Data test
+###
+POST http://localhost:5000/schedules
+Content-Type: application/json
+
+{
+  "compId": 6, 
+  "prodId": 2, 
+  "Schedule_Date": "2023-07-25",
+  "Shedule_Quantity": 200
+}
+
+###
+POST http://localhost:5000/schedules
+Content-Type: application/json
+
+{
+  "compId": 4,
+  "prodId": 7,
+  "Schedule_Date": "2023-09-01",
+  "Shedule_Quantity": 10
+}
+
+###
+PATCH  http://localhost:5000/schedules/4
+Content-Type: application/json
+
+{
+  "compId": 4,
+  "prodId": 7,
+  "Schedule_Date": "2024-09-01",
+  "Shedule_Quantity": 100
+}
+
+###
+GET http://localhost:5000/schedules/6
+
+
+### Production Testing
+POST http://localhost:5000/production 
+Content-Type: application/json
+
+{
+  "comp_name": "Computer Forest",      
+  "prod_name": "New Product Data kalpesh",     
+  "Production_Date": "2025-10-04",     
+  "Moulds_Poured": 11,                
+  "Prodction_Quantity": 143,
+  "Production_Weight": 575460.75
+}
+
+
+###
+GET  http://localhost:5000/products
+
+###
+PATCH http://localhost:5000/production/4 
+Content-Type: application/json
+
+{
+  "comp_name": "Computer Forest",      
+  "prod_name": "New Product Data kalpesh",     
+  "Production_Date": "2025-10-04",     
+  "Moulds_Poured": 112,                
+  "Prodction_Quantity": 113,
+  "Production_Weight": 575460.75
+}
+
+###
+DELETE http://localhost:5000/production/3
+
+
+
+// Heats Creation
+###
+POST http://localhost:5000/Heats
+Content-Type: application/json
+
+{
+  "Heat_date": "2025-10-04",
+  "No_of_Heates": 100
+}
+
+###
+GET http://localhost:5000/Heats
+
+###
+GET http://localhost:5000/products/12
+
+
+// Testing Production Addd
+###
+POST http://localhost:5000/production
+Content-Type: application/json
+
+{
+  "comp_name": "Computer Forest",      
+  "prod_name": "Product name forest",     
+  "Production_Date": "2028-11-04",     
+  "Moulds_Poured": 5            
+}
+
+###
+GET http://localhost:5000/productions
+
+###
+GET http://localhost:5000/production/16
+
+
+
+
+// Dispatch Backend
+###
+POST http://localhost:5000/dispatches
+Content-Type: application/json
+
+{
+  "Dispatch_Date": "03-12-2023",
+  "comp_name": "Computer Forest",
+  "prod_name": "Product name forest",
+  "Dispatch_Quantity": 150
+}
+
+###
+GET http://localhost:5000/dispatches
+
+
+###
+POST http://localhost:5000/schedules
+Content-Type: application/json
+
+{
+  "comp_name": "P16 Information Technology",
+  "prod_name": "P16 IT Product",
+  "Schedule_Date": "2023-08-30",
+  "Shedule_Quantity": 1
+}
+
+
+###
+GET http://localhost:5000/schedules

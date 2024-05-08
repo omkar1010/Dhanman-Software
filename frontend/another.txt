@@ -1,0 +1,204 @@
+// import Customer from "../models/CustomerModel.js";
+// import User from "../models/UserModel.js";
+// import { Op } from "sequelize";
+
+// export const getCustomers = async (req, res) => {
+//   try {
+//     let response;
+//     if (req.role === "admin") {
+//       response = await Customer.findAll({
+//         attributes:['uuid', 'cust_name', 'comp_name', 'comp_add','gstn_number', 'cont_num'],
+//         include: [{
+//             model: User,
+//             attributes:['name','email']
+//           }]
+//       });
+//     } else {
+//       response = await Customer.findAll({
+//         attributes:['uuid', 'cust_name', 'comp_name', 'comp_add','gstn_number', 'cont_num'],
+//         where: {
+//           userId: req.userId
+//         },
+//         include: [{
+//             model: User,
+//             attributes:['name','email']
+//           }]
+//       });
+//     }
+//     res.status(200).json(response);
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
+
+// export const getCustomerById = async (req, res) => {
+//   try {
+//     const customer = await Customer.findOne({
+//       where: {
+//         uuid: req.params.id
+//       }
+//     });
+//     if(!customer) return res.status(404).json({msg: "Data not found"});
+//     let response;
+//     if (req.role === "admin"){
+//       response = await Customer.findOne({
+//         attributes:['uuid', 'cust_name', 'comp_name', 'comp_add','gstn_number', 'cont_num'],
+//         where: {
+//           id: customer.id
+//         },
+//         include: [
+//           {
+//             model: User,
+//             attributes:['name','email']
+//           }],
+//       });
+//     } else {
+//       response = await Customer.findOne({
+//         attributes:['uuid', 'cust_name', 'comp_name', 'comp_add','gstn_number', 'cont_num'],
+//         where: {
+//           [Op.and]:[{id: customer.id}, {userId: req.userId}]
+//         },
+//         include: [{
+//             model: User,
+//             attributes:['name','email']
+//           }
+//         ]
+//       });
+//     }
+//     res.status(200).json(response);
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
+
+// export const createCustomer = async (req, res) => {
+//   const { cust_name, comp_name, comp_add, gstn_number, cont_num } = req.body;
+//   try {
+//     await Customer.create({
+//         cust_name: cust_name,
+//         comp_name: comp_name,
+//         comp_add: comp_add,
+//         gstn_number: gstn_number,
+//         cont_num: cont_num,
+//         userId: req.userId
+//     });
+//     res.status(201).json({msg: "Customer Created Successfully"})
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
+
+// export const updateCustomer = async (req, res) => {
+//   try {
+//     const customer = await Customer.findOne({
+//       where: {
+//         uuid: req.params.id
+//       }
+//     });
+//     if(!customer) return res.status(404).json({msg: "Data not found"});
+//     const { cust_name, comp_name, comp_add, gstn_number, cont_num } = req.body;
+//     if (req.role === "admin"){
+//       await Customer.update({cust_name, comp_name, comp_add, gstn_number, cont_num},{
+//         where:{
+//           id: customer.id
+//         }
+//       });
+//     } else {
+//       if(req.userId !== customer.userId) return res.status(403).json({msg: "access forbidden"})
+//       await Customer.update({cust_name, comp_name, comp_add, gstn_number, cont_num},{
+//         where: {
+//           [Op.and]:[{id: customer.id}, {userId: req.userId}]
+//         },
+//       });
+//     }
+//     res.status(200).json({msg: "Customer Updated Successfully"});
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
+
+// export const deleteCustomer = async (req, res) => {
+//   try {
+//     const customer = await Customer.findOne({
+//       where: {
+//         uuid: req.params.id
+//       }
+//     });
+//     if(!customer) return res.status(404).json({msg: "Data not found"});
+//     const { cust_name, comp_name, comp_add, gstn_number, cont_num } = req.body;
+//     if (req.role === "admin"){
+//       await Customer.destroy({cust_name, comp_name, comp_add, gstn_number, cont_num},{
+//         where:{
+//           id: customer.id
+//         }
+//       });
+//     } else {
+//       if(req.userId !== customer.userId) return res.status(403).json({msg: "access forbidden"})
+//       await Customer.destroy({
+//         where: {
+//           [Op.and]:[{id: customer.id}, {userId: req.userId}]
+//         },
+//       });
+//     }
+//     res.status(200).json({msg: "Customer Deleted Successfully"});
+//   } catch (error) {
+//     res.status(500).json({ msg: error.message });
+//   }
+// };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* Display Table */}
+      <div className="container mt-6">
+      <h2 className="is-size-4 has-text-weight-bold mb-4">Product List</h2>
+      <table className="table is-bordered is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>Customer Name</th>
+            <th>Product Name</th>
+            <th>Grade</th>
+            <th>Number of Castings</th>
+            <th>Casting Weight</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Only render the table if grades data is available */}
+          {isLoaded && grades.length > 0 ? (
+            filteredProducts.map((product) => (
+              <tr key={product.id}>
+                <td>{product?.MS_CustomerModel?.cust_name || "N/A"}</td>
+                  <td>{product.prod_name}</td>
+                  <td>{product.MS_Grade ? product.MS_Grade.Grade_Name : "N/A"}</td>
+                  <td>{product.No_of_casting_in_mould}</td>
+                  <td>{product.Casting_Weight}</td>
+                <td>
+                  {/* ... (Edit and Delete buttons) ... */}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6" className="has-text-centered">
+                {isLoaded ? "No products found" : "Loading..."}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
